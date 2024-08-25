@@ -1,21 +1,28 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  //remove before launch
-  React.useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // Simulated loading duration
-  }, []);
+  // //remove before launch
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 1000); // Simulated loading duration
+  // }, []);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      navigate(`/${userId}`);
+    }
+  }, [navigate]);
 
   const signIn = async () => {
     try {
@@ -25,10 +32,13 @@ function Auth() {
         password
       );
       const userId = userCredential.user.uid;
+      localStorage.setItem("userId", userId);
       navigate(`/${userId}`);
     } catch (err) {
       console.log(err);
       setError("Failed to log in. Please check your email and password.");
+    } finally {
+      setIsLoading(false);
     }
   };
 

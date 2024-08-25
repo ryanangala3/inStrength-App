@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../config/firebase";
@@ -10,7 +10,7 @@ function UserWorkout() {
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const getSelectedWorkout = async () => {
+  const getSelectedWorkout = useCallback(async () => {
     try {
       const docRef = doc(db, "userWorkouts", workoutId);
       const docSnap = await getDoc(docRef);
@@ -24,11 +24,11 @@ function UserWorkout() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [workoutId]);
 
   useEffect(() => {
     getSelectedWorkout();
-  }, []);
+  }, [getSelectedWorkout]);
 
   const navigateToHome = () => {
     navigate(`/${id}/workouts`);

@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import arrow from "../assets/arrow.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../config/firebase";
-import {
-  doc,
-  getDocs,
-  deleteDoc,
-  updateDoc,
-  collection,
-} from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 
 function UserWorkoutLog() {
   const [workoutList, setWorkoutList] = useState([]);
@@ -25,7 +19,7 @@ function UserWorkoutLog() {
     navigate(`/${id}/workouts/${workoutId}`);
   };
 
-  const getWorkoutList = async () => {
+  const getWorkoutList = useCallback(async () => {
     try {
       const data = await getDocs(workoutsCollectionsRef);
       const filteredData = data.docs.map((doc) => ({
@@ -39,11 +33,11 @@ function UserWorkoutLog() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getWorkoutList();
-  }, []);
+  }, [getWorkoutList]);
 
   if (loading) {
     return (

@@ -2,11 +2,9 @@ import SignUp from "./components/SignUp";
 import MainPage from "./pages/MainPage";
 import UserHomePage from "./components/UserHomePage";
 import UserWorkoutLog from "./pages/UserWorkoutLog";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import AddWorkoutPage from "./pages/AddWorkoutPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Example from "./pages/Example";
 import UserWorkout from "./pages/UserWorkout";
-import FooterAuth from "./components/FooterAuth";
 import background from "./assets/abstract-blue-and-dark-gray-wave-on-black-background-3.png";
 
 function App() {

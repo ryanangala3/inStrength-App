@@ -1,7 +1,7 @@
 import React from "react";
 import Quotes from "../components/Quotes";
 import WorkoutCalendar from "./Calendar";
-import { useNavigate, Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UserHomePage() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ function UserHomePage() {
   return (
     <div>
       <div className="border-white bg-customBlue shadow-lg mx-auto mt-4 px-4 py-4 border rounded-lg w-2/3 font-semibold text-3xl text-center text-white">
-        <h1>Welcome Rio!</h1>
+        <h1>Welcome TMNT!</h1>
       </div>
       <Quotes />
       <WorkoutCalendar />
